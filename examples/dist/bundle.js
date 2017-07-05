@@ -265,7 +265,7 @@ function defaultChildren(props) {
 }
 module.exports = exports['default'];
 
-},{"./Select":"selectize","./utils/stripDiacritics":10,"prop-types":undefined,"react":undefined}],2:[function(require,module,exports){
+},{"./Select":"rselector","./utils/stripDiacritics":10,"prop-types":undefined,"react":undefined}],2:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -350,7 +350,7 @@ var AsyncCreatableSelect = (function (_React$Component) {
 
 module.exports = AsyncCreatableSelect;
 
-},{"./Select":"selectize","react":undefined}],3:[function(require,module,exports){
+},{"./Select":"rselector","react":undefined}],3:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -707,7 +707,7 @@ CreatableSelect.propTypes = {
 
 module.exports = CreatableSelect;
 
-},{"./Select":"selectize","./utils/defaultFilterOptions":8,"./utils/defaultMenuRenderer":9,"prop-types":undefined,"react":undefined}],4:[function(require,module,exports){
+},{"./Select":"rselector","./utils/defaultFilterOptions":8,"./utils/defaultMenuRenderer":9,"prop-types":undefined,"react":undefined}],4:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -1174,7 +1174,7 @@ module.exports = function stripDiacritics(str) {
 	return str;
 };
 
-},{}],"selectize":[function(require,module,exports){
+},{}],"rselector":[function(require,module,exports){
 /*!
   Copyright (c) 2016 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -2470,7 +2470,7 @@ Select.propTypes = {
 	valueKey: _propTypes2['default'].string, // path of the label value in option objects
 	valueRenderer: _propTypes2['default'].func, // valueRenderer: function (option) {}
 	wrapperStyle: _propTypes2['default'].object, // optional style to apply to the component wrapper,
-	alwaysOpen: _propTypes2['default'].alwaysOpen // Optional key to set the dropdown to always open
+	alwaysOpen: _propTypes2['default'].bool // Optional key to set the dropdown to always open
 };
 
 Select.Async = _Async2['default'];
