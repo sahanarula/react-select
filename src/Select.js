@@ -72,7 +72,7 @@ class Select extends React.Component {
 		this.state = {
 			inputValue: '',
 			isFocused: false,
-			isOpen: false,
+			isOpen: props.alwaysOpen,
 			isPseudoFocused: false,
 			required: false,
 		};
@@ -298,13 +298,13 @@ class Select extends React.Component {
 	closeMenu () {
 		if(this.props.onCloseResetsInput) {
 			this.setState({
-				isOpen: false,
+				isOpen: this.props.alwaysOpen,
 				isPseudoFocused: this.state.isFocused && !this.props.multi,
 				inputValue: this.handleInputValueChange('')
 			});
 		} else {
 			this.setState({
-				isOpen: false,
+				isOpen: this.props.alwaysOpen,
 				isPseudoFocused: this.state.isFocused && !this.props.multi
 			});
 		}
@@ -313,7 +313,7 @@ class Select extends React.Component {
 
 	handleInputFocus (event) {
 		if (this.props.disabled) return;
-		var isOpen = this.state.isOpen || this._openAfterFocus || this.props.openOnFocus;
+		var isOpen = this.state.isOpen || this._openAfterFocus || this.props.openOnFocus || this.props.alwaysOpen;
 		if (this.props.onFocus) {
 			this.props.onFocus(event);
 		}
@@ -336,7 +336,7 @@ class Select extends React.Component {
 		}
 		var onBlurredState = {
 			isFocused: false,
-			isOpen: false,
+			isOpen: this.props.alwaysOpen,
 			isPseudoFocused: false,
 		};
 		if (this.props.onBlurResetsInput) {
@@ -527,7 +527,7 @@ class Select extends React.Component {
 			});
 		} else {
 			this.setState({
-				isOpen: false,
+				isOpen: this.props.alwaysOpen,
 				inputValue: this.handleInputValueChange(''),
 				isPseudoFocused: this.state.isFocused,
 			}, () => {
@@ -573,7 +573,7 @@ class Select extends React.Component {
 		event.preventDefault();
 		this.setValue(this.getResetValue());
 		this.setState({
-			isOpen: false,
+			isOpen: this.props.alwaysOpen,
 			inputValue: this.handleInputValueChange(''),
 		}, this.focus);
 	}
@@ -1114,7 +1114,8 @@ Select.propTypes = {
     valueComponent: PropTypes.func,       // value component to render
     valueKey: PropTypes.string,           // path of the label value in option objects
     valueRenderer: PropTypes.func,        // valueRenderer: function (option) {}
-    wrapperStyle: PropTypes.object,       // optional style to apply to the component wrapper
+    wrapperStyle: PropTypes.object,       // optional style to apply to the component wrapper,
+	alwaysOpen: PropTypes.alwaysOpen	  // Optional key to set the dropdown to always open
 };
 
 Select.Async = Async;
@@ -1160,6 +1161,7 @@ Select.defaultProps = {
     tabSelectsValue: true,
     valueComponent: Value,
     valueKey: 'value',
+	alwaysOpen: false
 };
 
 export default Select;
