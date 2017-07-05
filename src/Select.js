@@ -95,7 +95,8 @@ class Select extends React.Component {
 		}
 		// Need to find alternate solution. #hack
 		if (this.props.isFullScreen) {
-			window.onresize = this._adjustDropdownPosition();
+			// Let the keyboard drop
+			window.onresize = setTimeout(() => this._adjustDropdownPosition(), 200);
 		}
 	}
 
