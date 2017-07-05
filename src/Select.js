@@ -93,6 +93,10 @@ class Select extends React.Component {
 		if (this.props.autofocus) {
 			this.focus();
 		}
+		// Need to find alternate solution. #hack
+		if (this.props.isFullScreen) {
+			window.onresize(() => this._adjustDropdownPosition());
+		}
 	}
 
 	componentWillReceiveProps (nextProps) {
@@ -142,11 +146,7 @@ class Select extends React.Component {
 		}
 		// Need to find alternate solution. #hack
 		if (this.props.isFullScreen) {
-			var menuHeight = (document.body.clientHeight - (this.props.menuBuffer + this.control.clientHeight));
-			this.menuContainer.style.height = menuHeight + "px";
-			this.menuContainer.style.marginTop = (0 - menuHeight) + "px";
-			this.menuContainer.style.position = "fixed";
-			this.menuContainer.style.bottom = 0;
+			this._adjustDropdownPosition();
 		}
 		if (prevProps.disabled !== this.props.disabled) {
 			this.setState({ isFocused: false }); // eslint-disable-line react/no-did-update-set-state
@@ -160,6 +160,14 @@ class Select extends React.Component {
 		} else {
 			document.removeEventListener('touchstart', this.handleTouchOutside);
 		}
+	}
+
+	_adjustDropdownPosition () {
+		var menuHeight = (document.body.clientHeight - (this.props.menuBuffer + this.control.clientHeight));
+		this.menuContainer.style.height = menuHeight + "px";
+		this.menuContainer.style.marginTop = (0 - menuHeight) + "px";
+		this.menuContainer.style.position = "fixed";
+		this.menuContainer.style.bottom = 0;
 	}
 
 	toggleTouchOutsideEvent (enabled) {
