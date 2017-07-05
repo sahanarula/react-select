@@ -1331,8 +1331,16 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			var _this = this;
+
 			if (this.props.autofocus) {
 				this.focus();
+			}
+			// Need to find alternate solution. #hack
+			if (this.props.isFullScreen) {
+				window.onresize(function () {
+					return _this._adjustDropdownPosition();
+				});
 			}
 		}
 	}, {
@@ -1386,11 +1394,7 @@ var Select = (function (_React$Component) {
 			}
 			// Need to find alternate solution. #hack
 			if (this.props.isFullScreen) {
-				var menuHeight = document.body.clientHeight - (this.props.menuBuffer + this.control.clientHeight);
-				this.menuContainer.style.height = menuHeight + "px";
-				this.menuContainer.style.marginTop = 0 - menuHeight + "px";
-				this.menuContainer.style.position = "fixed";
-				this.menuContainer.style.bottom = 0;
+				this._adjustDropdownPosition();
 			}
 			if (prevProps.disabled !== this.props.disabled) {
 				this.setState({ isFocused: false }); // eslint-disable-line react/no-did-update-set-state
@@ -1405,6 +1409,15 @@ var Select = (function (_React$Component) {
 			} else {
 				document.removeEventListener('touchstart', this.handleTouchOutside);
 			}
+		}
+	}, {
+		key: '_adjustDropdownPosition',
+		value: function _adjustDropdownPosition() {
+			var menuHeight = document.body.clientHeight - (this.props.menuBuffer + this.control.clientHeight);
+			this.menuContainer.style.height = menuHeight + "px";
+			this.menuContainer.style.marginTop = 0 - menuHeight + "px";
+			this.menuContainer.style.position = "fixed";
+			this.menuContainer.style.bottom = 0;
 		}
 	}, {
 		key: 'toggleTouchOutsideEvent',
@@ -1760,7 +1773,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'getValueArray',
 		value: function getValueArray(value, nextProps) {
-			var _this = this;
+			var _this2 = this;
 
 			/** support optionally passing in the `nextProps` so `componentWillReceiveProps` updates will function as expected */
 			var props = typeof nextProps === 'object' ? nextProps : this.props;
@@ -1771,7 +1784,7 @@ var Select = (function (_React$Component) {
 					value = [value];
 				}
 				return value.map(function (value) {
-					return _this.expandValue(value, props);
+					return _this2.expandValue(value, props);
 				}).filter(function (i) {
 					return i;
 				});
@@ -1801,7 +1814,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'setValue',
 		value: function setValue(value) {
-			var _this2 = this;
+			var _this3 = this;
 
 			if (this.props.autoBlur) {
 				this.blurInput();
@@ -1813,7 +1826,7 @@ var Select = (function (_React$Component) {
 			}
 			if (this.props.simpleValue && value) {
 				value = this.props.multi ? value.map(function (i) {
-					return i[_this2.props.valueKey];
+					return i[_this3.props.valueKey];
 				}).join(this.props.delimiter) : value[this.props.valueKey];
 			}
 			this.props.onChange(value);
@@ -1821,7 +1834,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'selectValue',
 		value: function selectValue(value) {
-			var _this3 = this;
+			var _this4 = this;
 
 			//NOTE: update value in the callback to make sure the input value is empty so that there are no styling issues (Chrome had issue otherwise)
 			this.hasScrolledToOption = false;
@@ -1830,7 +1843,7 @@ var Select = (function (_React$Component) {
 					inputValue: this.handleInputValueChange(''),
 					focusedIndex: null
 				}, function () {
-					_this3.addValue(value);
+					_this4.addValue(value);
 				});
 			} else {
 				this.setState({
@@ -1838,7 +1851,7 @@ var Select = (function (_React$Component) {
 					inputValue: this.handleInputValueChange(''),
 					isPseudoFocused: this.state.isFocused
 				}, function () {
-					_this3.setValue(value);
+					_this4.setValue(value);
 				});
 			}
 		}
@@ -2032,7 +2045,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'renderValue',
 		value: function renderValue(valueArray, isOpen) {
-			var _this4 = this;
+			var _this5 = this;
 
 			var renderLabel = this.props.valueRenderer || this.getOptionLabel;
 			var ValueComponent = this.props.valueComponent;
@@ -2049,12 +2062,12 @@ var Select = (function (_React$Component) {
 					return _react2['default'].createElement(
 						ValueComponent,
 						{
-							id: _this4._instancePrefix + '-value-' + i,
-							instancePrefix: _this4._instancePrefix,
-							disabled: _this4.props.disabled || value.clearableValue === false,
-							key: 'value-' + i + '-' + value[_this4.props.valueKey],
+							id: _this5._instancePrefix + '-value-' + i,
+							instancePrefix: _this5._instancePrefix,
+							disabled: _this5.props.disabled || value.clearableValue === false,
+							key: 'value-' + i + '-' + value[_this5.props.valueKey],
 							onClick: onClick,
-							onRemove: _this4.removeValue,
+							onRemove: _this5.removeValue,
 							value: value
 						},
 						renderLabel(value, i),
@@ -2084,7 +2097,7 @@ var Select = (function (_React$Component) {
 		key: 'renderInput',
 		value: function renderInput(valueArray, focusedOptionIndex) {
 			var _classNames,
-			    _this5 = this;
+			    _this6 = this;
 
 			var className = (0, _classnames2['default'])('Select-input', this.props.inputProps.className);
 			var isOpen = !!this.state.isOpen;
@@ -2107,7 +2120,7 @@ var Select = (function (_React$Component) {
 				onChange: this.handleInputChange,
 				onFocus: this.handleInputFocus,
 				ref: function ref(_ref) {
-					return _this5.input = _ref;
+					return _this6.input = _ref;
 				},
 				required: this.state.required,
 				value: this.state.inputValue
@@ -2135,7 +2148,7 @@ var Select = (function (_React$Component) {
 					onBlur: this.handleInputBlur,
 					onFocus: this.handleInputFocus,
 					ref: function (ref) {
-						return _this5.input = ref;
+						return _this6.input = ref;
 					},
 					'aria-readonly': '' + !!this.props.disabled,
 					style: { border: 0, width: 1, display: 'inline-block' } }));
@@ -2247,17 +2260,17 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'renderHiddenField',
 		value: function renderHiddenField(valueArray) {
-			var _this6 = this;
+			var _this7 = this;
 
 			if (!this.props.name) return;
 			if (this.props.joinValues) {
 				var value = valueArray.map(function (i) {
-					return stringifyValue(i[_this6.props.valueKey]);
+					return stringifyValue(i[_this7.props.valueKey]);
 				}).join(this.props.delimiter);
 				return _react2['default'].createElement('input', {
 					type: 'hidden',
 					ref: function (ref) {
-						return _this6.value = ref;
+						return _this7.value = ref;
 					},
 					name: this.props.name,
 					value: value,
@@ -2267,9 +2280,9 @@ var Select = (function (_React$Component) {
 				return _react2['default'].createElement('input', { key: 'hidden.' + index,
 					type: 'hidden',
 					ref: 'value' + index,
-					name: _this6.props.name,
-					value: stringifyValue(item[_this6.props.valueKey]),
-					disabled: _this6.props.disabled });
+					name: _this7.props.name,
+					value: stringifyValue(item[_this7.props.valueKey]),
+					disabled: _this7.props.disabled });
 			});
 		}
 	}, {
@@ -2302,7 +2315,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'renderOuter',
 		value: function renderOuter(options, valueArray, focusedOption) {
-			var _this7 = this;
+			var _this8 = this;
 
 			var menu = this.renderMenu(options, valueArray, focusedOption);
 			if (!menu) {
@@ -2312,12 +2325,12 @@ var Select = (function (_React$Component) {
 			return _react2['default'].createElement(
 				'div',
 				{ ref: function (ref) {
-						return _this7.menuContainer = ref;
+						return _this8.menuContainer = ref;
 					}, className: 'Select-menu-outer', style: this.props.menuContainerStyle },
 				_react2['default'].createElement(
 					'div',
 					{ ref: function (ref) {
-							return _this7.menu = ref;
+							return _this8.menu = ref;
 						}, role: 'listbox', className: 'Select-menu', id: this._instancePrefix + '-list',
 						style: this.props.menuStyle,
 						onScroll: this.handleMenuScroll,
@@ -2329,7 +2342,7 @@ var Select = (function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this8 = this;
+			var _this9 = this;
 
 			var valueArray = this.getValueArray(this.props.value);
 			var options = this._visibleOptions = this.filterOptions(this.props.multi ? this.getValueArray(this.props.value) : null);
@@ -2368,7 +2381,7 @@ var Select = (function (_React$Component) {
 			return _react2['default'].createElement(
 				'div',
 				{ ref: function (ref) {
-						return _this8.wrapper = ref;
+						return _this9.wrapper = ref;
 					},
 					className: className,
 					style: this.props.wrapperStyle },
@@ -2376,7 +2389,7 @@ var Select = (function (_React$Component) {
 				_react2['default'].createElement(
 					'div',
 					{ ref: function (ref) {
-							return _this8.control = ref;
+							return _this9.control = ref;
 						},
 						className: 'Select-control',
 						style: this.props.style,
