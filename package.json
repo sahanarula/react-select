@@ -1,6 +1,6 @@
 {
   "name": "rselector",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "react-select extended component with additional functionalities",
   "main": "lib/Select.js",
   "style": "dist/react-select.min.css",
