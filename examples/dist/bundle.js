@@ -1339,9 +1339,11 @@ var Select = (function (_React$Component) {
 			// Need to find alternate solution. #hack
 			if (this.props.isFullScreen) {
 				// Let the keyboard drop
-				window.onresize = setTimeout(function () {
-					return _this._adjustDropdownPosition();
-				}, 200);
+				window.onresize = function () {
+					setTimeout(function () {
+						return _this._adjustDropdownPosition();
+					}, 0);
+				};
 			}
 		}
 	}, {
