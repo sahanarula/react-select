@@ -95,7 +95,7 @@ class Select extends React.Component {
 		}
 		// Need to find alternate solution. #hack
 		if (this.props.isFullScreen) {
-			window.onresize(() => this._adjustDropdownPosition());
+			window.onresize = this._adjustDropdownPosition();
 		}
 	}
 
