@@ -1115,7 +1115,7 @@ Select.propTypes = {
     valueKey: PropTypes.string,           // path of the label value in option objects
     valueRenderer: PropTypes.func,        // valueRenderer: function (option) {}
     wrapperStyle: PropTypes.object,       // optional style to apply to the component wrapper,
-	alwaysOpen: PropTypes.alwaysOpen	  // Optional key to set the dropdown to always open
+	alwaysOpen: PropTypes.bool	  		  // Optional key to set the dropdown to always open
 };
 
 Select.Async = Async;
