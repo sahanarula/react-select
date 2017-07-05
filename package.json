@@ -1,20 +1,20 @@
 {
-  "name": "react-select",
-  "version": "1.0.0-rc.5",
-  "description": "A Select control built with and for ReactJS",
+  "name": "rselector",
+  "version": "1.0.1",
+  "description": "react-select extended component with additional functionalities",
   "main": "lib/Select.js",
   "style": "dist/react-select.min.css",
-  "author": "Jed Watson",
+  "author": "Sahil Narula",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JedWatson/react-select.git"
+    "url": "https://github.com/sahanarula/react-select.git"
   },
   "dependencies": {
-    "create-react-class": "^15.5.2",
     "classnames": "^2.2.4",
-    "react-input-autosize": "^1.1.3",
-    "prop-types": "^15.5.8"
+    "create-react-class": "^15.5.2",
+    "prop-types": "^15.5.8",
+    "react-input-autosize": "^1.1.3"
   },
   "devDependencies": {
     "babel": "^5.8.23",
