@@ -159,9 +159,11 @@ class Select extends React.Component {
 	}
 
 	_adjustDropdownPosition () {
-		this.menuContainer.style.marginTop = (this.props.menuBuffer + this.control.clientHeight) + "px";
-		this.menuContainer.style.position = "fixed";
-		this.menuContainer.style.top = 0;
+		if (this.menuContainer) {
+			this.menuContainer.style.marginTop = (this.props.menuBuffer + this.control.clientHeight) + "px";
+			this.menuContainer.style.position = "fixed";
+			this.menuContainer.style.top = 0;
+		}
 	}
 
 	toggleTouchOutsideEvent (enabled) {
@@ -399,6 +401,11 @@ class Select extends React.Component {
 			return;
 			case 9: // tab
 				if (event.shiftKey || !this.state.isOpen || !this.props.tabSelectsValue) {
+					return;
+				}
+				this.selectFocusedOption();
+			case 32: // Space
+				if (event.shiftKey || !this.state.isOpen || !this.props.spaceSelectsValue) {
 					return;
 				}
 				this.selectFocusedOption();

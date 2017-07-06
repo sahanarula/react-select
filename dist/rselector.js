@@ -1101,9 +1101,11 @@ var Select = (function (_React$Component) {
 	}, {
 		key: '_adjustDropdownPosition',
 		value: function _adjustDropdownPosition() {
-			this.menuContainer.style.marginTop = this.props.menuBuffer + this.control.clientHeight + "px";
-			this.menuContainer.style.position = "fixed";
-			this.menuContainer.style.top = 0;
+			if (this.menuContainer) {
+				this.menuContainer.style.marginTop = this.props.menuBuffer + this.control.clientHeight + "px";
+				this.menuContainer.style.position = "fixed";
+				this.menuContainer.style.top = 0;
+			}
 		}
 	}, {
 		key: 'toggleTouchOutsideEvent',
@@ -1360,6 +1362,12 @@ var Select = (function (_React$Component) {
 				case 9:
 					// tab
 					if (event.shiftKey || !this.state.isOpen || !this.props.tabSelectsValue) {
+						return;
+					}
+					this.selectFocusedOption();
+				case 32:
+					// Space
+					if (event.shiftKey || !this.state.isOpen || !this.props.spaceSelectsValue) {
 						return;
 					}
 					this.selectFocusedOption();
