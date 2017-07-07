@@ -404,11 +404,6 @@ class Select extends React.Component {
 					return;
 				}
 				this.selectFocusedOption();
-			case 32: // Space
-				if (event.shiftKey || !this.state.isOpen || !this.props.spaceSelectsValue) {
-					return;
-				}
-				this.selectFocusedOption();
 			return;
 			case 13: // enter
 				if (!this.state.isOpen) return;
