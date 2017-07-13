@@ -406,7 +406,7 @@ class Select extends React.Component {
 				this.selectFocusedOption();
 			return;
 			case 13: // enter
-				if (!this.state.isOpen) return;
+				if (!this.state.isOpen || !this.props.enterSelectsValue) return;
 				event.stopPropagation();
 				this.selectFocusedOption();
 			break;
@@ -1122,6 +1122,7 @@ Select.propTypes = {
     style: PropTypes.object,              // optional style to apply to the control
     tabIndex: PropTypes.string,           // optional tab index of the control
     tabSelectsValue: PropTypes.bool,      // whether to treat tabbing out while focused to be value selection
+	enterSelectsValue: PropTypes.bool,	  // whether to treat entering while focused to be value selection
     value: PropTypes.any,                 // initial field value
     valueComponent: PropTypes.func,       // value component to render
     valueKey: PropTypes.string,           // path of the label value in option objects
@@ -1173,7 +1174,8 @@ Select.defaultProps = {
     tabSelectsValue: true,
     valueComponent: Value,
     valueKey: 'value',
-	alwaysOpen: false
+	alwaysOpen: false,
+	enterSelectsValue: true
 };
 
 export default Select;

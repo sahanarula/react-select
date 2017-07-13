@@ -1672,7 +1672,7 @@ var Select = (function (_React$Component) {
 					return;
 				case 13:
 					// enter
-					if (!this.state.isOpen) return;
+					if (!this.state.isOpen || !this.props.enterSelectsValue) return;
 					event.stopPropagation();
 					this.selectFocusedOption();
 					break;
@@ -2478,6 +2478,7 @@ Select.propTypes = {
 	style: _propTypes2['default'].object, // optional style to apply to the control
 	tabIndex: _propTypes2['default'].string, // optional tab index of the control
 	tabSelectsValue: _propTypes2['default'].bool, // whether to treat tabbing out while focused to be value selection
+	enterSelectsValue: _propTypes2['default'].bool, // whether to treat entering while focused to be value selection
 	value: _propTypes2['default'].any, // initial field value
 	valueComponent: _propTypes2['default'].func, // value component to render
 	valueKey: _propTypes2['default'].string, // path of the label value in option objects
@@ -2529,7 +2530,8 @@ Select.defaultProps = {
 	tabSelectsValue: true,
 	valueComponent: _Value2['default'],
 	valueKey: 'value',
-	alwaysOpen: false
+	alwaysOpen: false,
+	enterSelectsValue: true
 };
 
 exports['default'] = Select;
