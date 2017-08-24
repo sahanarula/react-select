@@ -756,7 +756,7 @@ class Select extends React.Component {
 	}
 
 	renderInput (valueArray, focusedOptionIndex) {
-		var className = classNames('Select-input', this.props.inputProps.className);
+		var className = classNames('Select-input', {'display-block': this.props.valuesInNewLine}, this.props.inputProps.className);
 		const isOpen = !!this.state.isOpen;
 
 		const ariaOwns = classNames({
@@ -811,7 +811,7 @@ class Select extends React.Component {
 					onFocus={this.handleInputFocus}
 					ref={ref => this.input = ref}
 					aria-readonly={'' + !!this.props.disabled}
-					style={{ border: 0, width: 1, display: this.props.valuesInNewLine ? 'block' : 'inline-block' }}/>
+					style={{ border: 0, width: 1, display: 'inline-block' }}/>
 			);
 		}
 
@@ -1048,12 +1048,12 @@ class Select extends React.Component {
 						{
 							this.props.valuesInNewLine
 							? <span>
-								{this.renderValue(valueArray, isOpen)}
 								{this.renderInput(valueArray, focusedOptionIndex)}
+								{this.renderValue(valueArray, isOpen)}
 							</span>
 							: <span>
-								{this.renderInput(valueArray, focusedOptionIndex)}
 								{this.renderValue(valueArray, isOpen)}
+								{this.renderInput(valueArray, focusedOptionIndex)}
 							</span>
 						}
 					</span>
