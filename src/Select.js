@@ -525,6 +525,9 @@ class Select extends React.Component {
 			value = this.props.multi ? value.map(i => i[this.props.valueKey]).join(this.props.delimiter) : value[this.props.valueKey];
 		}
 		this.props.onChange(value);
+		setTimeout(() => {
+			this.wrapper.style.height = (this.control.clientHeight + 1) + "px";
+		});
 	}
 
 	selectValue (value) {
@@ -808,7 +811,7 @@ class Select extends React.Component {
 					onFocus={this.handleInputFocus}
 					ref={ref => this.input = ref}
 					aria-readonly={'' + !!this.props.disabled}
-					style={{ border: 0, width: 1, display:'inline-block' }}/>
+					style={{ border: 0, width: 1, display: this.props.valuesInNewLine ? 'block' : 'inline-block' }}/>
 			);
 		}
 
@@ -1042,8 +1045,17 @@ class Select extends React.Component {
 					onTouchMove={this.handleTouchMove}
 				>
 					<span className="Select-multi-value-wrapper" id={this._instancePrefix + '-value'}>
-						{this.renderValue(valueArray, isOpen)}
-						{this.renderInput(valueArray, focusedOptionIndex)}
+						{
+							this.props.valuesInNewLine
+							? <span>
+								{this.renderValue(valueArray, isOpen)}
+								{this.renderInput(valueArray, focusedOptionIndex)}
+							</span>
+							: <span>
+								{this.renderInput(valueArray, focusedOptionIndex)}
+								{this.renderValue(valueArray, isOpen)}
+							</span>
+						}
 					</span>
 					{removeMessage}
 					{this.renderLoading()}
@@ -1128,7 +1140,8 @@ Select.propTypes = {
     valueKey: PropTypes.string,           // path of the label value in option objects
     valueRenderer: PropTypes.func,        // valueRenderer: function (option) {}
     wrapperStyle: PropTypes.object,       // optional style to apply to the component wrapper,
-	alwaysOpen: PropTypes.bool	  		  // Optional key to set the dropdown to always open
+	alwaysOpen: PropTypes.bool,	  		  // Optional key to set the dropdown to always open
+	valuesInNewLine: PropTypes.bool		  // Optional key to set values in new line next to input
 };
 
 Select.Async = Async;
@@ -1175,7 +1188,8 @@ Select.defaultProps = {
     valueComponent: Value,
     valueKey: 'value',
 	alwaysOpen: false,
-	enterSelectsValue: true
+	enterSelectsValue: true,
+	valuesInNewLine: false
 };
 
 export default Select;
