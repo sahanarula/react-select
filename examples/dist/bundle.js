@@ -1822,6 +1822,9 @@ var Select = (function (_React$Component) {
 				}).join(this.props.delimiter) : value[this.props.valueKey];
 			}
 			this.props.onChange(value);
+			setTimeout(function () {
+				_this2.wrapper.style.height = _this2.control.clientHeight + 1 + "px";
+			});
 		}
 	}, {
 		key: 'selectValue',
@@ -2143,7 +2146,7 @@ var Select = (function (_React$Component) {
 						return _this5.input = ref;
 					},
 					'aria-readonly': '' + !!this.props.disabled,
-					style: { border: 0, width: 1, display: 'inline-block' } }));
+					style: { border: 0, width: 1, display: this.props.valuesInNewLine ? 'block' : 'inline-block' } }));
 			}
 
 			if (this.props.autosize) {
@@ -2394,8 +2397,17 @@ var Select = (function (_React$Component) {
 					_react2['default'].createElement(
 						'span',
 						{ className: 'Select-multi-value-wrapper', id: this._instancePrefix + '-value' },
-						this.renderValue(valueArray, isOpen),
-						this.renderInput(valueArray, focusedOptionIndex)
+						this.props.valuesInNewLine ? _react2['default'].createElement(
+							'span',
+							null,
+							this.renderValue(valueArray, isOpen),
+							this.renderInput(valueArray, focusedOptionIndex)
+						) : _react2['default'].createElement(
+							'span',
+							null,
+							this.renderInput(valueArray, focusedOptionIndex),
+							this.renderValue(valueArray, isOpen)
+						)
 					),
 					removeMessage,
 					this.renderLoading(),
@@ -2484,7 +2496,8 @@ Select.propTypes = {
 	valueKey: _propTypes2['default'].string, // path of the label value in option objects
 	valueRenderer: _propTypes2['default'].func, // valueRenderer: function (option) {}
 	wrapperStyle: _propTypes2['default'].object, // optional style to apply to the component wrapper,
-	alwaysOpen: _propTypes2['default'].bool // Optional key to set the dropdown to always open
+	alwaysOpen: _propTypes2['default'].bool, // Optional key to set the dropdown to always open
+	valuesInNewLine: _propTypes2['default'].bool // Optional key to set values in new line next to input
 };
 
 Select.Async = _Async2['default'];
@@ -2531,7 +2544,8 @@ Select.defaultProps = {
 	valueComponent: _Value2['default'],
 	valueKey: 'value',
 	alwaysOpen: false,
-	enterSelectsValue: true
+	enterSelectsValue: true,
+	valuesInNewLine: false
 };
 
 exports['default'] = Select;
