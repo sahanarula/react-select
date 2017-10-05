@@ -2018,7 +2018,7 @@ var Select = (function (_React$Component) {
 				'div',
 				{ ref: function (ref) {
 						return _this7.menuContainer = ref;
-					}, className: 'Select-menu-outer', style: this.props.menuContainerStyle },
+					}, className: 'Select-menu-outer', style: this.props.menuContainerStyle, onMouseDown: this.handleMouseDownOnMenu },
 				_react2['default'].createElement(
 					'div',
 					{ ref: function (ref) {
